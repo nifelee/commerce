@@ -1,0 +1,68 @@
+buildscript {
+  ext {
+    queryDslPluginVersion = '1.0.10'
+  }
+  repositories {
+    maven { url 'https://plugins.gradle.org/m2/' }
+  }
+  dependencies {
+    classpath("gradle.plugin.com.ewerk.gradle.plugins:querydsl-plugin:${queryDslPluginVersion}")
+  }
+}
+
+dependencies {
+  implementation 'com.fasterxml.jackson.core:jackson-databind:2.9.8'
+
+  implementation 'org.apache.commons:commons-lang3:3.8.1'
+  implementation 'org.apache.poi:poi:4.0.1'
+  implementation 'org.apache.poi:poi-ooxml:4.0.1'
+  implementation 'commons-configuration:commons-configuration:1.10'
+
+  implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+  implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+
+  compile 'com.querydsl:querydsl-jpa'
+  compile 'org.hibernate:hibernate-jcache:5.3.7.Final'
+  compile 'org.ehcache:ehcache'
+  implementation 'org.hibernate:hibernate-envers'
+
+  //runtimeOnly 'com.h2database:h2'
+  compile 'com.h2database:h2'
+  compile 'mysql:mysql-connector-java'
+
+  annotationProcessor 'com.querydsl:querydsl-apt'
+}
+
+// https://jojoldu.tistory.com/372
+apply plugin: "com.ewerk.gradle.plugins.querydsl"
+def queryDslSrcDir = 'src/main/generated'
+
+querydsl {
+  library = "com.querydsl:querydsl-apt"
+  jpa = true
+  querydslSourcesDir = queryDslSrcDir
+}
+
+compileQuerydsl{
+  options.annotationProcessorPath = configurations.querydsl
+}
+
+configurations {
+  querydsl.extendsFrom compileClasspath
+}
+
+sourceSets {
+  main {
+    java {
+      srcDirs = ['src/main/java', queryDslSrcDir]
+    }
+  }
+}
+
+bootJar {
+  enabled = false
+}
+
+jar {
+  enabled = true
+}

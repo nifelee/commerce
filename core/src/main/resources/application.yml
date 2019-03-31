@@ -1,0 +1,78 @@
+spring:
+  profiles:
+    active: local
+  jpa:
+    open-in-view: true
+    properties:
+      org.hibernate.envers.audit_table_suffix: _h
+      hibernate.cache.use_query_cache: true
+      hibernate.cache.use_second_level_cache: true
+      #http://docs.jboss.org/hibernate/stable/orm/userguide/html_single/Hibernate_User_Guide.html#caching-provider-jcache
+      hibernate.cache.region.factory_class: org.hibernate.cache.jcache.internal.JCacheRegionFactory
+      hibernate.javax.cache.provider: org.ehcache.jsr107.EhcacheCachingProvider
+      hibernate.javax.cache.missing_cache_strategy: create #fail|create-warn|create
+
+#local
+---
+spring:
+  profiles: local
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate.format_sql: true
+  datasource:
+    hikari:
+      #driver-class-name: org.h2.Driver
+      jdbc-url: jdbc:h2:~/commerce;DB_CLOSE_ON_EXIT=FALSE
+      username: sa
+      password:
+  h2:
+    console:
+      enabled: true
+
+logging:
+  level:
+    com.nifelee: debug
+    org.hibernate.type.descriptor.sql.BasicBinder: trace
+    org.hibernate.type.EnumType: trace
+
+#dev
+---
+spring:
+  profiles: dev
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+  datasource:
+    hikari:
+      #driver-class-name: org.h2.Driver
+      jdbc-url: jdbc:h2:mem:test;DB_CLOSE_ON_EXIT=FALSE
+      username: sa
+      password:
+
+logging:
+  level:
+    com.nifelee: debug
+    org.hibernate.type.descriptor.sql.BasicBinder: trace
+    org.hibernate.type.EnumType: trace
+
+#production
+---
+spring:
+  profiles: production
+  jpa:
+    hibernate:
+      ddl-auto: validate
+  datasource:
+    hikari:
+      #driver-class-name: com.mysql.jdbc.Driver
+      jdbc-url: jdbc:mysql://127.0.0.1/@db.name@?createDatabaseIfNotExist=true&characterEncoding=utf8
+      username: root
+      password:
+
+logging:
+  level:
+    com.nifelee: warn
