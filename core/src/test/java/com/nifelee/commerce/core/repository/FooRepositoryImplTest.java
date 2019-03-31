@@ -2,6 +2,7 @@ package com.nifelee.commerce.core.repository;
 
 import com.nifelee.commerce.core.domain.Foo;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,16 @@ public class FooRepositoryImplTest {
 
   @Autowired
   private FooRepository fooRepository;
+
+  @Before
+  public void before() {
+    Foo foo = Foo.builder()
+            .name("FOO")
+            .fooType(Foo.FooType.BAR)
+            .build();
+
+    fooRepository.save(foo);
+  }
 
   @Test
   public void getAlls() {

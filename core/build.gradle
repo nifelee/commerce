@@ -11,24 +11,22 @@ buildscript {
 }
 
 dependencies {
-  implementation 'com.fasterxml.jackson.core:jackson-databind:2.9.8'
+  implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+  implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+  implementation 'com.fasterxml.jackson.core:jackson-databind'
+
+  implementation 'com.querydsl:querydsl-jpa'
+  implementation 'org.hibernate:hibernate-jcache'
+  implementation 'org.hibernate:hibernate-envers'
+  implementation 'org.ehcache:ehcache'
+
+  runtimeOnly 'com.h2database:h2'
+  runtimeOnly 'mysql:mysql-connector-java'
 
   implementation 'org.apache.commons:commons-lang3:3.8.1'
   implementation 'org.apache.poi:poi:4.0.1'
   implementation 'org.apache.poi:poi-ooxml:4.0.1'
   implementation 'commons-configuration:commons-configuration:1.10'
-
-  implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-  implementation 'org.springframework.boot:spring-boot-starter-jdbc'
-
-  compile 'com.querydsl:querydsl-jpa'
-  compile 'org.hibernate:hibernate-jcache:5.3.7.Final'
-  compile 'org.ehcache:ehcache'
-  implementation 'org.hibernate:hibernate-envers'
-
-  //runtimeOnly 'com.h2database:h2'
-  compile 'com.h2database:h2'
-  compile 'mysql:mysql-connector-java'
 
   annotationProcessor 'com.querydsl:querydsl-apt'
 }
