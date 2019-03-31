@@ -19,7 +19,7 @@ public abstract class AbstractTimestampEntity<K extends Serializable> extends Ab
 
   private static final long serialVersionUID = -1776653546324533189L;
 
-  @Column(name = "updated_datetime")
+  @Column(name = "updated_date_time")
   @UpdateTimestamp
   protected LocalDateTime updatedDateTime;
 

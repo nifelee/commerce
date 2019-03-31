@@ -19,7 +19,7 @@ public abstract class AbstractCreateTimestampEntity<K extends Serializable> exte
 
   private static final long serialVersionUID = -8801727337312553249L;
 
-  @Column(name = "created_datetime", updatable = false)
+  @Column(name = "created_date_time", updatable = false)
   @CreationTimestamp
   protected LocalDateTime createDateTime;
 

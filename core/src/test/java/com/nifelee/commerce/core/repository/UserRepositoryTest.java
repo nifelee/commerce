@@ -1,6 +1,6 @@
 package com.nifelee.commerce.core.repository;
 
-import com.nifelee.commerce.core.domain.Foo;
+import com.nifelee.commerce.core.domain.User;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,17 +11,17 @@ import org.springframework.test.context.junit4.SpringRunner;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @Slf4j
-public class FooRepositoryTest {
+public class UserRepositoryTest {
 
   @Autowired
-  FooRepository fooRepository;
+  UserRepository userRepository;
 
   @Test
   public void findOne() {
-    Foo foo = fooRepository.findById(1L)
-                .orElse(null);
+    User user = userRepository.findById("user-01")
+        .orElse(null);
 
-    log.debug("foo : {}", foo);
+    log.debug("user : {}", user);
   }
 
 }
