@@ -1,4 +1,4 @@
-package com.nifelee.commerce.core.repository;
+package com.nifelee.commerce.core.jpa.repository;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;

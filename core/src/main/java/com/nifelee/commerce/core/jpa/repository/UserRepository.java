@@ -1,6 +1,6 @@
-package com.nifelee.commerce.core.repository;
+package com.nifelee.commerce.core.jpa.repository;
 
-import com.nifelee.commerce.core.domain.User;
+import com.nifelee.commerce.core.jpa.domain.User;
 import com.nifelee.common.data.GenericRepository;
 import org.springframework.stereotype.Repository;
 

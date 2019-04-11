@@ -1,4 +1,4 @@
-package com.nifelee.commerce.core.constants;
+package com.nifelee.commerce.core.jpa.constants;
 
 public class ColumnSizeConstants {
 

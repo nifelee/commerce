@@ -1,11 +1,14 @@
-package com.nifelee.commerce.core.config;
+package com.nifelee.commerce.core.jpa;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.configuration.DatabaseConfiguration;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.FilterType;
+import org.springframework.core.type.filter.RegexPatternTypeFilter;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
@@ -14,11 +17,13 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.sql.DataSource;
 import java.util.Optional;
+import java.util.regex.Pattern;
 
 @Configuration
-@EnableJpaRepositories(basePackages = "com.nifelee.commerce.core.repository")
-@EntityScan(basePackages = "com.nifelee.commerce.core.domain")
-@EnableJpaAuditing(auditorAwareRef = "auditorAware")
+@EnableJpaRepositories(basePackages = "com.nifelee.commerce.core.jpa.repository",
+    includeFilters = @ComponentScan.Filter(type = FilterType.CUSTOM, value = JpaConfig.JpaRepositoryFilter.class))
+@EntityScan(basePackages = "com.nifelee.commerce.core.jpa.domain")
+@EnableJpaAuditing
 @RequiredArgsConstructor
 public class JpaConfig {
 
@@ -63,6 +68,12 @@ public class JpaConfig {
       return user;
 */
       return Optional.empty();
+    }
+  }
+
+  public static class JpaRepositoryFilter extends RegexPatternTypeFilter {
+    public JpaRepositoryFilter() {
+      super(Pattern.compile(".*(?i)\\.jpa.repository.*"));
     }
   }
 

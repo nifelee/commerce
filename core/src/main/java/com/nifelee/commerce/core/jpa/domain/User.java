@@ -1,6 +1,6 @@
-package com.nifelee.commerce.core.domain;
+package com.nifelee.commerce.core.jpa.domain;
 
-import com.nifelee.commerce.core.constants.ColumnSizeConstants;
+import com.nifelee.commerce.core.jpa.constants.ColumnSizeConstants;
 import com.nifelee.common.data.AbstractTraceableEntity;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.envers.AuditOverride;
 import org.hibernate.envers.Audited;
 import org.hibernate.envers.NotAudited;
 
@@ -27,6 +28,7 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(callSuper = false, of = "id")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Audited
+@AuditOverride(forClass = AbstractTraceableEntity.class)
 public class User extends AbstractTraceableEntity<String, String> {
 
   private static final long serialVersionUID = -7007647000281699799L;
